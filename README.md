@@ -1,5 +1,7 @@
 # My Old Wallet
 
+![alt text](https://i.imgur.com/kq4HYbX.png)
+
 ## Get started
 
 #### Clone the repository
