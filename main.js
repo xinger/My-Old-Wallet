@@ -14,10 +14,10 @@ let mainWindow = [];
 function createWindow(file) {
     // Create the browser window.
     var newWindow = new BrowserWindow({
-        width: 1000,
-        height: 700,
-        x: 0,
-        y: 0,
+        width: 600,
+        height: 190,
+        // x: 0,
+        // y: 0,
         titleBarStyle: 'hidden-inset',
         // vibrancy: 'light'
     });
@@ -40,7 +40,7 @@ function createWindow(file) {
         mainWindow = null
     });
 
-    newWindow.webContents.openDevTools();
+    // newWindow.webContents.openDevTools();
 
     mainWindow.push(newWindow);
 }
