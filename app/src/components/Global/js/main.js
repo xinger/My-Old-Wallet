@@ -13,4 +13,6 @@ Air.config( {
 	}
 } );
 
-Air.start();
+Air.start( {
+	is_debug: true
+} );

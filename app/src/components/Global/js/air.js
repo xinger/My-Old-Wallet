@@ -923,6 +923,10 @@
 					}
 				} catch( error ) {
 					self.utility.error( 'Error while define "%s": %s', module.name, error.stack.split('at ')[0].trim() );
+
+					if ( self.is_debug === true ) {
+						throw error;
+					}
 				}
 
 				this.delegateData( {} );
@@ -1581,6 +1585,11 @@
 										}
 									} catch ( error ) {
 										self.utility.error( 'Error while %s "%s": %s', method_name, module.name, error.stack.split('at ')[0].trim() );
+
+										if ( self.is_debug === true ) {
+											throw error;
+										}
+
 										check( method_name, module.name, Date.now() - start_date );
 									}
 								} else {
@@ -1671,9 +1680,14 @@
 
 						try {
 							settings = JSON.parse( settings );
-						}catch(e) {
+						}catch(error) {
 							settings = {};
-							console.error('getDOMModules --> JSON parsing error', e);
+
+							self.utility.error( 'Error while parsing DOM-modules "%s": "%s"', module_names.join( ', ' ), error.stack.split('at ')[0].trim() );
+
+							if ( self.is_debug === true ) {
+								throw error;
+							}
 						}
 
 						for ( j = 0; j < module_names_length; j++ ) {
@@ -1841,7 +1855,9 @@
 			return self;
 		};
 
-		self.start = function() {
+		self.start = function( params ) {
+			self.is_debug = params.is_debug === true;
+
 			if ( window.airBeforeInit ) {
 				self.utility.requireScripts( window.airBeforeInit(), self.ModuleManager.init );
 			} else {

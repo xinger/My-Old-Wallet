@@ -37,6 +37,10 @@ var lib = {
 	/**
 	 * Common
 	 */
+	getFilenameFromPath: function( path ) {
+		return path.replace(/^.*[\\\/]/, '');
+	},
+
 	getFilesOrFolders: function( method_name, dir ) {
 		if ( modules.fs.existsSync( dir ) ) {
 			return modules.fs.readdirSync( dir ).filter( function( file ) {
@@ -74,11 +78,15 @@ var lib = {
 	 * Scripts
 	 */
 	getVendorScriptsFromComponent: function( comp_name ) {
-		return this.getFilesFromComponent( comp_name, 'js/vendor' );
+		return this.getFilesFromComponent( comp_name, paths.js_name + '/vendor' );
 	},
 
 	getModuleScriptsFromComponent: function( comp_name ) {
-		return this.getFilesFromComponent( comp_name, 'js/modules' );
+		return this.getFilesFromComponent( comp_name, paths.js_name + '/modules' );
+	},
+
+	getTplsFromComponent: function( comp_name ) {
+		return this.getFilesFromComponent( comp_name, paths.tpl_name );
 	},
 
 	getOtherScriptsFromComponent: function( comp_name ) {
@@ -136,7 +144,7 @@ var lib = {
 	 * Styles
 	 */
 	getVendorStylesFromComponent: function( comp_name ) {
-		return this.getFilesFromComponent( comp_name, 'css/vendor' );
+		return this.getFilesFromComponent( comp_name, paths.css_name + '/vendor' );
 	},
 
 	getOtherStylesFromComponent: function( comp_name ) {
@@ -192,9 +200,22 @@ var lib = {
 			config_data = {};
 
 		all_components.forEach( function( comp_name ) {
-			var comp_modules = that.getModuleScriptsFromComponent( comp_name );
+			var comp_modules = that.getModuleScriptsFromComponent( comp_name ),
+				comp_tpls = that.getTplsFromComponent( comp_name ),
+				comp_modules_names = comp_modules.map( that.getFilenameFromPath ),
+				comp_tpl_names = comp_tpls.map( that.getFilenameFromPath );
 
-			_log(comp_name, comp_modules);
+			comp_modules_names.forEach( function( module_name ) {
+				if ( config_data[ module_name ] === undefined ) {
+					config_data[ module_name ] = {};
+				}
+
+				comp_tpls.forEach( function( tpl_name, j ) {
+					config_data[ module_name ][ tpl_name ] = modules.fs.readFileSync( comp_tpls[ j ] );
+				} );
+			} );
+
+			_log(config_data);
 		} );
 	},
 
