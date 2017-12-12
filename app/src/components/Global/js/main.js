@@ -8,9 +8,7 @@ Air.config( {
 
 	},
 	'global': '{{global_modules}}', // переменная – просто так, для демонстрации
-	'modules': {
-
-	}
+	'modules': window.__modules_config || {}
 } );
 
 Air.start( {

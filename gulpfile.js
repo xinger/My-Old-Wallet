@@ -194,7 +194,7 @@ var lib = {
 	    this.setVersion( paths.css_name, dest_dir );
 	},
 
-	getAllTpls: function() {
+	buildTpl: function( dest_dir ) {
 		var that = this,
 			all_components = this.getComponents(),
 			config_data = {};
@@ -206,27 +206,33 @@ var lib = {
 				comp_tpl_names = comp_tpls.map( that.getFilenameFromPath );
 
 			comp_modules_names.forEach( function( module_name ) {
+				var conf_path,
+					conf;
+
+				module_name = module_name.replace( /\.[^/.]+$/, '' );
+
 				if ( config_data[ module_name ] === undefined ) {
-					config_data[ module_name ] = {};
+					conf_path = modules.path.join( paths.components, comp_name, 'config.json' );
+
+					if ( modules.fs.existsSync( conf_path ) ) {
+						conf = JSON.parse( modules.fs.readFileSync( conf_path, 'utf8' ) );
+					} else {
+						conf = {};
+					}
+
+					config_data[ module_name ] = {
+						tpl: {},
+						conf: conf
+					};
 				}
 
 				comp_tpls.forEach( function( tpl_name, j ) {
-					config_data[ module_name ][ tpl_name ] = modules.fs.readFileSync( comp_tpls[ j ] );
+					config_data[ module_name ][ 'tpl' ][ tpl_name ] = modules.fs.readFileSync( comp_tpls[ j ], 'utf8' ).replace( /(\r\n|\n|\r)/gm, '' );
 				} );
 			} );
-
-			_log(config_data);
 		} );
-	},
 
-	buildTpl: function( dest_dir ) {
-		var all_tpls = this.getAllTpls();
-
-		// modules.gulp.src( all_tpls )
-		// 	.pipe( modules.concat( 'min.styl' ) )
-	    //     .pipe( modules.gulp.dest( dest_dir ) );
-        //
-	    // this.setVersion( paths.tpl_name, dest_dir );
+		modules.fs.writeFileSync( dest_dir + '/modules_config.json', JSON.stringify( config_data ), 'utf8' );
 	}
 
 };

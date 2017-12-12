@@ -5,6 +5,24 @@
     <meta charset="UTF-8">
     <title>My Old Wallet</title>
     <link rel="stylesheet" href="./app/build/dev/min.css">
+
+    <script>
+
+        (function() {
+            var fs = require('fs'),
+                conf_path = 'app/build/dev/modules_config.json';
+
+            if ( fs.existsSync( conf_path ) ) {
+                try {
+                    window.__modules_config = JSON.parse( fs.readFileSync( conf_path, 'utf8' ) || '' );
+                } catch( error ) {
+                    console.error( 'Error while parsing modules config' );
+                    throw error;
+                }
+            }
+        })();
+
+    </script>
 </head>
 
 <body>

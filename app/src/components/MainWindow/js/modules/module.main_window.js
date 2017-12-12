@@ -3,7 +3,6 @@ Air.define('module.main_window', 'lib.DOM', function($) {
         vue = require('vue');
 
     self.init = function() {
-
     };
 
     self.refresh = function() {
