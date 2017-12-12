@@ -1,5 +1,6 @@
-Air.define('module.view', 'lib.DOM', function($) {
-    var self = this;
+Air.define('module.state', '', function() {
+    var self = this,
+        state_data = {};
 
     self.init = function() {
 
