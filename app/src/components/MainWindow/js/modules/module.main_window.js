@@ -3,8 +3,21 @@ Air.define('module.main_window', 'lib.DOM, module.view', function($, View) {
 
     self.init = function() {
 
-        View.render();
-        
+        View.render({
+            message: 'Artem',
+            items: [
+                {
+                    text: '1'
+                },
+                {
+                    text: '2'
+                },
+                {
+                    text: '3'
+                }
+            ]
+        });
+
     };
 
     self.refresh = function() {

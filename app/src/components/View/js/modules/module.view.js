@@ -2,13 +2,27 @@ Air.define('module.view', 'lib.DOM', function($) {
     var self = this,
         views = [];
 
-    self.render = function () {
+    self.render = function (data) {
 
-        var app = new Vue({
+        Vue.component('todo-item', {
+            props: ['todo'],
+            template: '<li>{{ todo.text }}</li>'
+        });
+
+        window.vue = new Vue({
             el: '#app',
-            template: '<h1>{{message}}</h1>',
+            template: `
+            <div>
+                <p>{{ message }}</p>
+                <input v-model="message">
+
+                <todo-item
+                    v-for="item in items"
+                    v-bind:todo="item"></todo-item>
+            </div>
+            `,
             data: function () {
-                return window.aaa;
+                return data;
             }
         });
 
