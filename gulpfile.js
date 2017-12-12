@@ -25,7 +25,8 @@ var paths = {
 	build_dev: 'app/build/dev',
 	build_prod: 'app/build/prod',
 	js_name: 'js',
-	css_name: 'css'
+	css_name: 'css',
+	tpl_name: 'tpl'
 };
 
 /**
@@ -183,6 +184,28 @@ var lib = {
 	        .pipe( modules.gulp.dest( dest_dir ) );
 
 	    this.setVersion( paths.css_name, dest_dir );
+	},
+
+	getAllTpls: function() {
+		var that = this,
+			all_components = this.getComponents(),
+			config_data = {};
+
+		all_components.forEach( function( comp_name ) {
+			var comp_modules = that.getModuleScriptsFromComponent( comp_name );
+
+			_log(comp_name, comp_modules);
+		} );
+	},
+
+	buildTpl: function( dest_dir ) {
+		var all_tpls = this.getAllTpls();
+
+		// modules.gulp.src( all_tpls )
+		// 	.pipe( modules.concat( 'min.styl' ) )
+	    //     .pipe( modules.gulp.dest( dest_dir ) );
+        //
+	    // this.setVersion( paths.tpl_name, dest_dir );
 	}
 
 };
@@ -206,9 +229,17 @@ modules.gulp.task( 'build_styles_prod', function() {
 	lib.buildStyles( paths.build_prod );
 } );
 
-modules.gulp.task( 'build_dev', [ 'build_scripts_dev', 'build_styles_dev' ] );
+modules.gulp.task( 'build_tpl_dev', function() {
+	lib.buildTpl( paths.build_dev );
+} );
 
-modules.gulp.task( 'build_prod', [ 'build_scripts_prod', 'build_styles_prod' ] );
+modules.gulp.task( 'build_tpl_prod', function() {
+	lib.buildTpl( paths.build_prod );
+} );
+
+modules.gulp.task( 'build_dev', [ 'build_tpl_dev', 'build_scripts_dev', 'build_styles_dev' ] );
+
+modules.gulp.task( 'build_prod', [ 'build_tpl_prod', 'build_scripts_prod', 'build_styles_prod' ] );
 
 modules.gulp.task( 'watch', function () {
     modules.gulp.watch( [
