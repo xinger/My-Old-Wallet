@@ -23,7 +23,9 @@ var modules = {
 var paths = {
 	components: 'app/src/components',
 	build_dev: 'app/build/dev',
-	build_prod: 'app/build/prod'
+	build_prod: 'app/build/prod',
+	js_name: 'js',
+	css_name: 'css'
 };
 
 /**
@@ -79,7 +81,7 @@ var lib = {
 	},
 
 	getOtherScriptsFromComponent: function( comp_name ) {
-		return this.getFilesFromComponent( comp_name, 'js' );
+		return this.getFilesFromComponent( comp_name, paths.js_name );
 	},
 
 	getAllScripts: function() {
@@ -101,9 +103,9 @@ var lib = {
 
 		return global_vendor
 				.concat( comp_vendor )
-				.concat( [ modules.path.join( paths.components, global_component_name, 'js', 'air.js' ) ] )
+				.concat( [ modules.path.join( paths.components, global_component_name, paths.js_name, 'air.js' ) ] )
 				.concat( all_modules )
-				.concat( [ modules.path.join( paths.components, global_component_name, 'js', 'main.js' ) ] );
+				.concat( [ modules.path.join( paths.components, global_component_name, paths.js_name, 'main.js' ) ] );
 	},
 
 	buildScriptsDev: function() {
@@ -114,7 +116,7 @@ var lib = {
 	        .pipe( modules.chmod( 0o777 ) )
 	        .pipe( modules.gulp.dest( paths.build_dev ) );
 
-	    this.setVersion( 'scripts', paths.build_dev );
+	    this.setVersion( paths.js_name, paths.build_dev );
 	},
 
 	buildScriptsProd: function() {
@@ -126,7 +128,7 @@ var lib = {
 	        .pipe( modules.chmod( 0o777 ) )
 	        .pipe( modules.gulp.dest( paths.build_prod ) );
 
-	   	this.setVersion( 'scripts', paths.build_prod );
+	   	this.setVersion( paths.js_name, paths.build_prod );
 	},
 
 	/**
@@ -137,7 +139,7 @@ var lib = {
 	},
 
 	getOtherStylesFromComponent: function( comp_name ) {
-		return this.getFilesFromComponent( comp_name, 'css' );
+		return this.getFilesFromComponent( comp_name, paths.css_name );
 	},
 
 	getAllStyles: function() {
@@ -180,7 +182,7 @@ var lib = {
 	        .pipe( modules.chmod( 0o777 ) )
 	        .pipe( modules.gulp.dest( dest_dir ) );
 
-	    this.setVersion( 'styles', dest_dir );
+	    this.setVersion( paths.css_name, dest_dir );
 	}
 
 };
