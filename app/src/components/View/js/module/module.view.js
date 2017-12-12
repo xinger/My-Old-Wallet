@@ -1,6 +1,5 @@
-Air.define('module.main_window', 'lib.DOM', function($) {
-    var self = this,
-        vue = require('vue');
+Air.define('module.view', 'lib.DOM', function($) {
+    var self = this;
 
     self.init = function() {
 

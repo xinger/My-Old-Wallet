@@ -9,6 +9,7 @@ Air.config( {
 	},
 	'global': '{{global_modules}}', // переменная – просто так, для демонстрации
 	'modules': {
+
 	}
 } );
 
