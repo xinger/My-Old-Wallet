@@ -21,9 +21,9 @@ var modules = {
  * Common variables
  */
 var paths = {
-	components: 'dev/components',
-	build_dev: 'dev/build',
-	build_prod: 'prod/build'
+	components: 'app/src/components',
+	build_dev: 'app/build/dev',
+	build_prod: 'app/build/prod'
 };
 
 /**
@@ -71,15 +71,15 @@ var lib = {
 	 * Scripts
 	 */
 	getVendorScriptsFromComponent: function( comp_name ) {
-		return this.getFilesFromComponent( comp_name, 'scripts/vendor' );
+		return this.getFilesFromComponent( comp_name, 'js/vendor' );
 	},
 
 	getModuleScriptsFromComponent: function( comp_name ) {
-		return this.getFilesFromComponent( comp_name, 'scripts/modules' );
+		return this.getFilesFromComponent( comp_name, 'js/modules' );
 	},
 
 	getOtherScriptsFromComponent: function( comp_name ) {
-		return this.getFilesFromComponent( comp_name, 'scripts' );
+		return this.getFilesFromComponent( comp_name, 'js' );
 	},
 
 	getAllScripts: function() {
@@ -101,9 +101,9 @@ var lib = {
 
 		return global_vendor
 				.concat( comp_vendor )
-				.concat( [ modules.path.join( paths.components, global_component_name, 'scripts', 'air.js' ) ] )
+				.concat( [ modules.path.join( paths.components, global_component_name, 'js', 'air.js' ) ] )
 				.concat( all_modules )
-				.concat( [ modules.path.join( paths.components, global_component_name, 'scripts', 'main.js' ) ] );
+				.concat( [ modules.path.join( paths.components, global_component_name, 'js', 'main.js' ) ] );
 	},
 
 	buildScriptsDev: function() {
@@ -133,11 +133,11 @@ var lib = {
 	 * Styles
 	 */
 	getVendorStylesFromComponent: function( comp_name ) {
-		return this.getFilesFromComponent( comp_name, 'styles/vendor' );
+		return this.getFilesFromComponent( comp_name, 'css/vendor' );
 	},
 
 	getOtherStylesFromComponent: function( comp_name ) {
-		return this.getFilesFromComponent( comp_name, 'styles' );
+		return this.getFilesFromComponent( comp_name, 'css' );
 	},
 
 	getAllStyles: function() {

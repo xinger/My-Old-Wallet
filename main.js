@@ -51,7 +51,6 @@ function createWindow(file) {
 // Some APIs can only be used after this event occurs.
 app.on('ready', function() {
     createWindow('index.html')
-    // createWindow('index2.html')
 });
 
 // Quit when all windows are closed.
