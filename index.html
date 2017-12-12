@@ -27,16 +27,22 @@
 
 <body>
 
-    <window>
-        <header></header>
-        <content></content>
-    </window>
-
     <air module="module.main_window"></air>
 
-    <script>
-        require('./app/build/dev/min.js');
-    </script>
+    <window>
+
+        <header></header>
+
+        <content>
+
+            <div id="app"></div>
+            
+        </content>
+
+    </window>
+
+    <script src="app/build/dev/min.js"></script>
+
 </body>
 
 </html>

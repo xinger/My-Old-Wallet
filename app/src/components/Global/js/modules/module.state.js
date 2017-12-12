@@ -1,7 +1,9 @@
-Air.define('module.main_window', 'lib.DOM, module.view', function($, View) {
-    var self = this;
+Air.define('module.state', '', function() {
+    var self = this,
+        state_data = {};
 
     self.init = function() {
+
     };
 
     self.refresh = function() {
