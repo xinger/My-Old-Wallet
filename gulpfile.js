@@ -269,6 +269,14 @@ modules.gulp.task( 'build_dev', [ 'build_tpl_dev', 'build_scripts_dev', 'build_s
 modules.gulp.task( 'build_prod', [ 'build_tpl_prod', 'build_scripts_prod', 'build_styles_prod' ] );
 
 modules.gulp.task( 'watch', function () {
+	modules.gulp.watch( [
+        '**/*.html', '**/*.json'
+    ], { cwd: paths.components }, function() {
+    	setTimeout( function() {
+    		modules.gulp.start( 'build_tpl_dev' );
+    	}, 100 );
+    } );
+
     modules.gulp.watch( [
         '**/*.css'
     ], { cwd: paths.components }, function() {
