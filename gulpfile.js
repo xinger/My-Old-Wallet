@@ -211,24 +211,26 @@ var lib = {
 
 				module_name = module_name.replace( /\.[^/.]+$/, '' );
 
-				if ( config_data[ module_name ] === undefined ) {
-					conf_path = modules.path.join( paths.components, comp_name, 'config.json' );
+				if ( module_name.indexOf( 'module.' ) === 0 ) {
+					if ( config_data[ module_name ] === undefined ) {
+						conf_path = modules.path.join( paths.components, comp_name, 'config.json' );
 
-					if ( modules.fs.existsSync( conf_path ) ) {
-						conf = JSON.parse( modules.fs.readFileSync( conf_path, 'utf8' ) );
-					} else {
-						conf = {};
+						if ( modules.fs.existsSync( conf_path ) ) {
+							conf = JSON.parse( modules.fs.readFileSync( conf_path, 'utf8' ) );
+						} else {
+							conf = {};
+						}
+
+						config_data[ module_name ] = {
+							tpl: {},
+							conf: conf
+						};
 					}
 
-					config_data[ module_name ] = {
-						tpl: {},
-						conf: conf
-					};
+					comp_tpls.forEach( function( tpl_name, j ) {
+						config_data[ module_name ][ 'tpl' ][ tpl_name ] = modules.fs.readFileSync( comp_tpls[ j ], 'utf8' ).replace( /(\r\n|\n|\r)/gm, '' );
+					} );
 				}
-
-				comp_tpls.forEach( function( tpl_name, j ) {
-					config_data[ module_name ][ 'tpl' ][ tpl_name ] = modules.fs.readFileSync( comp_tpls[ j ], 'utf8' ).replace( /(\r\n|\n|\r)/gm, '' );
-				} );
 			} );
 		} );
 
