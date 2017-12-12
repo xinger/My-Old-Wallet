@@ -19,7 +19,17 @@
   "devDependencies": {
     "drivelist": "^5.2.7",
     "electron": "~1.7.8",
+    "fs": "0.0.1-security",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-chmod": "^2.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.0",
+    "gulp-file": "^0.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-stylus": "^2.6.0",
+    "gulp-uglify": "^3.0.0",
+    "path": "^0.12.7",
     "ractive": "^0.9.10",
     "walk": "^2.3.9"
   }
