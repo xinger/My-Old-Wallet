@@ -4,7 +4,24 @@ Air.define('module.StateController', 'module.Store', function(Store, util) {
 
     var onAirReady = function () {
         window.onAirReady = null;
-        util.build( '/' );
+        util.build( '/', {
+            finish: () => setTimeout(observeModules, 0)
+        } );
+    };
+
+    var observeModules = function () {
+        var targetNode = document.body;
+
+        var config = { childList: true, subtree:true };
+
+        var callback = function(mutationsList) {
+            _log(mutationsList);
+            util.build( '/' );
+        };
+
+        var observer = new MutationObserver(callback);
+
+        observer.observe(targetNode, config);
     };
 
     self.init = function() {
@@ -14,15 +31,15 @@ Air.define('module.StateController', 'module.Store', function(Store, util) {
 
         vue_instance = new Vue({
             el: '#app',
-            template: self.config.tpl.root,
+            template: self.config.tpl.controller,
             data: data
         });
 
-        vue_instance.$watch('name', function () {
-
-            util.build( '/' );
-
-        });
+        // vue_instance.$watch('name', function () {
+        //
+        //     util.build( '/' );
+        //
+        // });
 
         window.onAirReady = onAirReady;
 
