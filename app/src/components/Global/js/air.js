@@ -352,11 +352,11 @@
 			  * @param {Object} config - Config JSON containing 'variables' field.
 			  * @return {Object} Config JSON with replaced variables.
 			  */
-			manager.replaceConfigVars = function( config ) {
-				var variables = self.utility.mergeJSON( manager.config.variables, config.variables );
-
-				return JSON.parse( self.utility.replaceVars( JSON.stringify( config ).replace( /'/g, '"' ), variables, '{{', '}}' ) );
-			};
+			// manager.replaceConfigVars = function( config ) {
+			// 	var variables = self.utility.mergeJSON( manager.config.variables, config.variables );
+            //
+			// 	return JSON.parse( self.utility.replaceVars( JSON.stringify( config ).replace( /'/g, '"' ), variables, '{{', '}}' ) );
+			// };
 
 			/**
 			  * Initializes manager:
@@ -374,7 +374,7 @@
 			manager.init = function( config ) {
 				manager.config = config;
 
-				manager.config = manager.replaceConfigVars( manager.config );
+				// manager.config = manager.replaceConfigVars( manager.config );
 
 				var router = manager.config.router,
 					route_modules,
