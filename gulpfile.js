@@ -38,7 +38,7 @@ var lib = {
 	 * Common
 	 */
 	getFilenameFromPath: function( path ) {
-		return path.replace(/^.*[\\\/]/, '');
+		return path.replace(/^.*[\\\/]/, '').replace(/\.[^/.]+$/, '');
 	},
 
 	getFilesOrFolders: function( method_name, dir ) {
@@ -209,7 +209,7 @@ var lib = {
 				var conf_path,
 					conf;
 
-				module_name = module_name.replace( /\.[^/.]+$/, '' );
+				// module_name = module_name.replace( /\.[^/.]+$/, '' );
 
 				if ( module_name.indexOf( 'module.' ) === 0 ) {
 					if ( config_data[ module_name ] === undefined ) {
@@ -227,13 +227,13 @@ var lib = {
 						};
 					}
 
-					comp_tpls.forEach( function( tpl_name, j ) {
-						config_data[ module_name ][ 'tpl' ][ tpl_name ] = modules.fs.readFileSync( comp_tpls[ j ], 'utf8' ).replace( /(\r\n|\n|\r)/gm, '' );
+					comp_tpls.forEach( function( tpl_path, j ) {
+						config_data[ module_name ][ 'tpl' ][ comp_tpl_names[ j ] ] = modules.fs.readFileSync( tpl_path, 'utf8' ).replace( /(\r\n|\n|\r)/gm, '' );
 					} );
 				}
 			} );
 		} );
-
+		
 		modules.fs.writeFileSync( dest_dir + '/modules_config.json', JSON.stringify( config_data ), 'utf8' );
 	}
 
