@@ -3,7 +3,7 @@ Air.define('module.DrivesModel', 'module.Store', function(Store) {
         state_data;
 
     self.init = function() {
-        
+
     };
 
 });

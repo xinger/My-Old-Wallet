@@ -2,22 +2,15 @@ Air.define('module.StateMain', 'module.Store', function(Store) {
     var self = this;
 
     self.init = function() {
-
-        var data = {
-            state: 'main'
-        };
-
-        _log('self.config.tpl.root', self.config.tpl.root);
+        var data = Store.get('StateMain');
 
         window.vue = new Vue({
             el: '[air-module="module.StateMain"] state',
-            template: self.config.tpl.root,
+            template: self.config.tpl.main,
             data: function () {
                 return data;
             }
         });
-
-
 
     };
 

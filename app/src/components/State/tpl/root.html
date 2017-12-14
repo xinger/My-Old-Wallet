@@ -1,11 +1,13 @@
 <div class="root">
 
     <div v-if="name === 'main'" air-module="module.StateMain">
-        <state><h1>{{name}}</h1></state>
+        <h1>{{name}}</h1>
+        <state></state>
     </div>
 
-    <div v-if="name === 'search'" air-module="module.StateMain">
-        <state><h1>{{name}}</h1></state>
+    <div v-if="name === 'search'" air-module="module.StateSearch">
+        <h1>{{name}}</h1>
+        <state></state>
     </div>
 
 </div>
